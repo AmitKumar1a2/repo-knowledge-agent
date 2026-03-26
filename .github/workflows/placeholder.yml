@@ -1,0 +1,11 @@
+name: Repo Check
+
+on:
+  push:
+
+jobs:
+  repo-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo setup verified
+        run: echo "Repo setup verified"

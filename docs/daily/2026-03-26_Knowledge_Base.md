@@ -1,19 +1,19 @@
-# Knowledge Base - 2026-03-26
+﻿# Knowledge Base - 2026-03-26
 
-## Q: When should you use MMR instead of plain similarity search in a RAG pipeline?
-**A:** Use plain similarity search when you want the closest matches only. Use MMR when you also want diversity across retrieved chunks so the context window covers different aspects of the query instead of repeating near-duplicates.
+## Q: What is the difference between MMR and plain similarity search in a RAG pipeline?
+**A:** Plain similarity search returns the nearest matches by score, which can produce redundant chunks. MMR trades a small amount of raw similarity for diversity, making retrieved context more likely to cover distinct aspects of the query.
 
 **Type:** CONCEPTUAL
 **Tags:** rag, retrieval, mmr, similarity-search
-**Source:** cline conversation
+**Source:** codex conversation
 
 ---
 
 ## Q: Why use MCP instead of relying only on raw prompts?
-**A:** MCP gives the model structured access to tools, context, and external systems with clearer boundaries than raw prompting alone. That improves reliability, reduces prompt bloat, and makes repeated workflows easier to standardize.
+**A:** MCP gives the model a structured interface to tools, context, and external systems instead of encoding everything inside long prompts. That improves reliability, reduces prompt sprawl, and makes workflows easier to standardize across repeated tasks.
 
 **Type:** CONCEPTUAL
 **Tags:** mcp, agent-design, prompting, tooling
-**Source:** cline conversation
+**Source:** codex conversation
 
 ---
