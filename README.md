@@ -1,86 +1,89 @@
-# Repo Knowledge Capture Agent
+# 🚀 Repo Knowledge Agent (RKCA)
 
-Repo Knowledge Capture Agent is a lightweight, Cline-first pattern for saving reusable conceptual learning from AI conversations into daily markdown files inside the repository.
+> Turn developer conversations into structured, searchable knowledge — automatically.
 
-It exists to preserve teaching-oriented knowledge without polluting the repo with implementation noise. The goal is to keep the knowledge base useful, readable, and portable across projects.
+---
 
-## What It Captures
+## 🧠 What is this?
 
-The system captures only conceptual or concept-heavy hybrid conversations, such as explanations, tradeoffs, architecture guidance, and broadly reusable teaching.
+**Repo Knowledge Agent (RKCA)** is a **Cline-first, repo-native agent system** that captures *conceptual learning* from AI conversations and stores it as a structured knowledge base inside your repository.
 
-It does not capture implementation-only activity such as code edits, refactors, bugfixes, shell work, git work, or repo-specific explanations that are not reusable outside the immediate task.
+Instead of losing context in chats, RKCA converts insights into reusable documentation — automatically.
 
-## File Structure
+---
 
-```text
-.clinerules/
-  conceptual-only.md
-  repo-knowledge-capture.md
-  workflows/
-    capture-knowledge.md
-docs/
-  daily/
-    YYYY-MM-DD_Knowledge_Base.md
-scripts/
-  kb_writer.py
-```
+## ⚡ Why this exists
 
-## How Cline Uses the Rules
+Developers today:
 
-The persistent rule file in `.clinerules/repo-knowledge-capture.md` tells Cline to:
-- classify each request as `CONCEPTUAL`, `IMPLEMENTATION`, or `HYBRID`
-- log only `CONCEPTUAL` requests and `HYBRID` requests with substantial conceptual value
-- rewrite the original request into a reusable question
-- write a concise reusable answer
-- assign 2-5 tags
-- append the result to `docs/daily/YYYY-MM-DD_Knowledge_Base.md`
-- skip duplicate questions in the same daily file
+- Learn through AI conversations (Cline, Codex, ChatGPT)
+- Solve problems fast… but forget context just as fast
+- Rarely document learnings
+- Revisit the same concepts repeatedly
 
-The scope guard in `.clinerules/conceptual-only.md` reinforces that implementation-only work should not be logged.
+👉 RKCA solves this by turning **thinking → memory → knowledge**
 
-## Manual Workflow
+---
 
-The manual workflow lives at `.clinerules/workflows/capture-knowledge.md`.
+## 🔥 What it does
 
-Invoke it when you want to explicitly capture the strongest reusable learning from the current conversation. The workflow reviews context, classifies the request, rewrites the question, writes a concise answer, assigns tags, and appends to today's knowledge-base file. If a near-duplicate exists, it should merge rather than add redundant content.
+RKCA sits inside your repo and:
 
-The workflow also includes a short confirmation block with:
-- classification
-- rewritten question
-- target file path
+- 🧠 **Classifies conversations** → Conceptual vs Implementation  
+- 📝 **Captures only meaningful learning** (not noise)  
+- 🔄 **Rewrites into reusable Q&A format**  
+- 🗂️ **Stores knowledge daily inside your repo**  
+- 🏷️ **Tags for future retrieval**
 
-## Python Writer Script
+---
 
-Use the local writer when you want deterministic file creation and duplicate prevention:
+## 🏗️ How it works
 
-```bash
-python scripts/kb_writer.py \
-  --question "When should you use MMR instead of plain similarity search in a RAG pipeline?" \
-  --answer "Use similarity search for the closest matches only, and MMR when you also want diverse coverage across retrieved chunks." \
-  --type CONCEPTUAL \
-  --tags "rag,retrieval,mmr"
-```
+User → Cline → RKCA Rules → Classifier → If Conceptual → Store in docs/daily/
 
-Optional date override:
+---
 
-```bash
-python scripts/kb_writer.py \
-  --question "Why use MCP instead of relying only on raw prompts?" \
-  --answer "MCP provides structured access to tools and context, which improves reliability and reduces prompt sprawl." \
-  --type CONCEPTUAL \
-  --tags "mcp,prompting,tooling" \
-  --date 2026-03-26
-```
+## 📂 Project Structure
 
-Behavior:
-- creates `docs/daily/` if missing
-- initializes a new daily file with `# Knowledge Base - YYYY-MM-DD`
-- appends entries in the standard markdown format
-- skips duplicates based on exact normalized question match within the target daily file
+repo-knowledge-agent/
+│
+├── .clinerules/
+├── scripts/
+├── docs/
+│   └── daily/
+└── README.md
 
-## Expected Behavior Examples
+---
 
-- `Explain MMR vs similarity search in RAG` => log
-- `Refactor this function` => skip
-- `Why use MCP instead of raw prompts?` => log
-- `Fix this failing unit test` => skip
+## 🧩 Example Output
+
+# Knowledge Base - 2026-03-26
+
+## Q: What is the difference between MMR and similarity search in RAG?
+**A:** Similarity search retrieves top-k closest vectors purely by distance, which can result in redundant chunks. MMR balances relevance with diversity.
+
+**Type:** CONCEPTUAL  
+**Tags:** rag, embeddings, retrieval  
+**Source:** cline conversation  
+
+---
+
+## 🧠 Design Philosophy
+
+This is not a prompt.  
+This is a **developer memory system**.
+
+---
+
+## 🚀 Roadmap
+
+- Semantic duplicate detection
+- Weekly summaries
+- MCP integration
+- Codex skill packaging
+
+---
+
+## ⭐ If this helped you
+
+Give it a star ⭐
